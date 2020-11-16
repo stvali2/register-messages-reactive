@@ -32,7 +32,7 @@ public class MessageController {
     }
 
     @Operation(tags = "Register messages", description = "View a list of available messages")
-    @GetMapping(value = "/messages", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    @GetMapping(value = "/messages", produces = MediaType.APPLICATION_JSON_VALUE)
     public Flux<MessageDto> getAll() {
         log.info("get all messages");
         return messageService.getAll();

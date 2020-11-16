@@ -1,40 +1,50 @@
 package com.example.register.messages.boundary
 
+import com.example.register.messages.entity.Message
+import com.example.register.messages.entity.MessageDto
 import org.spockframework.spring.SpringBean
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration
+import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient
 import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest
-import org.springframework.http.MediaType
+import org.springframework.context.ApplicationContext
+import org.springframework.test.context.ContextConfiguration
 import org.springframework.test.web.reactive.server.WebTestClient
 import reactor.core.publisher.Flux
-import spock.lang.Ignore
 import spock.lang.Specification
 
+@AutoConfigureWebTestClient
 @WebFluxTest(controllers = MessageController)
+@ContextConfiguration(classes = [MessageService, MessageController])
+@EnableAutoConfiguration
 class MessageControllerTest extends Specification {
-  @Autowired
-  private WebTestClient testClient
 
-  @SpringBean
-  private final MessageService service = Mock(MessageService)
+    private WebTestClient webTestClient
 
-  @Ignore
-  def "finding all messages should work"() {
-    given: ''
+    @Autowired
+    private ApplicationContext context
 
-    when: 'GET request is performed'
-    WebTestClient.ResponseSpec response = testClient
-        .get()
-        .uri('/api/v1/messages')
-        .accept(MediaType.APPLICATION_JSON)
-        .exchange()
+    @SpringBean
+    private MessageService messageService = Mock(MessageService)
 
-    then: ''
-    1 * service.getAll() >> Flux.empty()
+    def setup() {
+        webTestClient = WebTestClient.bindToApplicationContext(context).build()
+    }
 
-    and: 'messages are retrieved from messagesRepository'
-    response.expectStatus().isOk()
+    def "finding all messages should work"() {
+        given: 'an message controller'
 
-    and: 'result is successful'
-    response.expectBody(String).isEqualTo("")
-  }
+        when: 'get request is performed'
+        WebTestClient.ResponseSpec response = webTestClient
+                .get()
+                .uri('/api/v1/messages')
+                .exchange()
+
+        then: 'response status should be ok'
+        response.expectStatus().isOk()
+        and: 'result is successful'
+        response.expectBodyList(Message).isEqualTo([])
+        and: 'message services get all should be called'
+        1 * messageService.getAll() >> Flux.fromIterable(new ArrayList<MessageDto>())
+    }
 }

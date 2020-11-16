@@ -20,19 +20,19 @@ public class MessageService {
         this.transformer = transformer;
     }
 
-    Flux<MessageDto> getAllLive() {
+    public Flux<MessageDto> getAllLive() {
         return messagesRepository
                 .findAllBy()
                 .map(transformer::convertToDto);
     }
 
-    Flux<MessageDto> getAll() {
+    public Flux<MessageDto> getAll() {
         return messagesRepository
                 .findAll()
                 .map(transformer::convertToDto);
     }
 
-    Mono<MessageDto> create(MessageDto message) {
+    public Mono<MessageDto> create(MessageDto message) {
         return messagesRepository
                 .insert(transformer.convertFromDto(message))
                 .map(transformer::convertToDto);
