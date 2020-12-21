@@ -10,10 +10,10 @@ import org.springframework.test.web.reactive.server.WebTestClient
 import spock.lang.Specification
 
 @AutoConfigureWebTestClient
-@WebFluxTest(controllers = TestController)
-@ContextConfiguration(classes = [TestController])
+@WebFluxTest(controllers = HelloController)
+@ContextConfiguration(classes = [HelloController])
 @EnableAutoConfiguration
-class TestControllerTest extends Specification {
+class HelloControllerTest extends Specification {
     @Autowired
     private WebTestClient webTestClient
 
@@ -23,7 +23,7 @@ class TestControllerTest extends Specification {
         when: 'get request is performed'
         WebTestClient.ResponseSpec response = webTestClient
                 .get()
-                .uri('/api/v1/test')
+                .uri('/api/v1/hello')
                 .exchange()
 
         then: 'response status should be ok'

@@ -22,10 +22,10 @@ import reactor.core.publisher.Mono;
         ),
         tags = @Tag(name = "Hello world message")
 )
-public class TestController {
+public class HelloController {
 
     @Operation(tags = "Hello world message", description = "View hello world message")
-    @GetMapping(value = "/test", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/hello", produces = MediaType.APPLICATION_JSON_VALUE)
     public Mono<String> getHelloWorld() {
         log.info("get hello world message");
         return Mono.just("Hello world!");
