@@ -1,4 +1,4 @@
-package com.example.register.messages.boundary
+package com.example.register.messages
 
 
 import org.springframework.beans.factory.annotation.Autowired

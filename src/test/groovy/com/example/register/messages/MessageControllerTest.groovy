@@ -1,7 +1,6 @@
-package com.example.register.messages.boundary
+package com.example.register.messages
 
-import com.example.register.messages.entity.Message
-import com.example.register.messages.entity.MessageDto
+
 import org.spockframework.spring.SpringBean
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration
