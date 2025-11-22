@@ -3,8 +3,8 @@ package com.example.register.messages
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration
-import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient
-import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest
+import org.springframework.boot.webflux.test.autoconfigure.WebFluxTest
+import org.springframework.boot.webtestclient.autoconfigure.AutoConfigureWebTestClient
 import org.springframework.test.context.ContextConfiguration
 import org.springframework.test.web.reactive.server.WebTestClient
 import spock.lang.Specification
